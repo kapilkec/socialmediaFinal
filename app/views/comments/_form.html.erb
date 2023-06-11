@@ -1,0 +1,16 @@
+
+<br>
+Adding a comment
+<%= form_with model: [ post, post.comments.build ] do |form| %>
+  <p>
+    <%= form.label :commenter %><br>
+    <%= form.text_field :commenter %>
+  </p>
+  <p>
+    <%= form.label :comment %><br>
+    <%= form.text_area :comment  %>
+  </p>
+  <p>
+    <%= form.submit %>
+  </p>
+<% end %>

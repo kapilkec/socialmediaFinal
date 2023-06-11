@@ -1,0 +1,21 @@
+<h1>Storys#index</h1>
+
+ <% @storys.each do |story| %>
+ <%# for status deleting %>
+<% time_difference = Time.now - story.created_at%>
+<% if time_difference >= 24.hours %>
+<% user_id = story.user.id %>
+<% user = User.find(user_id)%>
+<% user.story.destroy %>
+<% end %>
+
+ <p>Note:</p><br>
+ <%= story.note %>
+<p>Name:</p>
+<br>
+<%= story.user.name %>
+
+<%= button_to "DELETE", delete_story_path(story.id) , method: :delete %>
+
+<hr>
+<%end%>

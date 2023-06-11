@@ -1,0 +1,33 @@
+<h2>Comments</h2>
+<%  post.comments.each do |comment| %>
+  <p>
+    <strong>Commenter:</strong>
+    <%= comment.commenter %>
+  </p>
+
+  <p>
+    <strong>Comment:</strong>
+    <%= comment.comment %>
+  </p>
+  <%= like = comment.likes.where(user_id:1)%>
+
+  <% if like.length == 0%>
+  <%= button_to "like", comment_like_path, params: {comment_id: comment.id}, method: :post %>
+  <%else%>
+
+  <%= button_to "UnLike", comment_unlike_path ,params: {comment_id: comment.id, like_id: like[0].id }, method: :post %>
+  <% end %>
+
+    COMMENTS:  <%= comment.likes.count %>
+    <hr>
+
+  <p>
+    <%= link_to "Destroy", [comment.post, comment], data: {
+                  turbo_method: :delete,
+                  turbo_confirm: "Are you sure?"
+                } %>
+  </p>
+  <br>
+  <%= link_to  "Edit", edit_post_comment_path(post, comment) %>
+  <p>``````````````````````````</p>
+<% end %>

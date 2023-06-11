@@ -1,0 +1,20 @@
+<%= form_with model: post  do |form| %>
+  <div>
+    <%= form.label :title %><br>
+    <%= form.text_field :title %>
+  </div>
+     <% post.errors.full_messages_for(:title).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  <div>
+    <%= form.label :description %><br>
+    <%= form.text_area :description %>
+  </div>
+<% post.errors.full_messages_for(:description).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  <div>
+     <%= form.file_field :images, multiple:true%>
+    <%= form.submit %>
+  </div>
+<% end %>

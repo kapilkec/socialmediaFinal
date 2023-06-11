@@ -1,0 +1,7 @@
+FOLLOWERS
+<% @records.each do |record| %>
+<% user = User.find(record.fromUser) %>
+<% if user != nil %>
+<p> <%= user.name %> <%= user.email %> <%= render "follow", touser: record.fromUser %>
+<%end%>
+<%end%>

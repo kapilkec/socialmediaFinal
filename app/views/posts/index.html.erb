@@ -1,0 +1,37 @@
+<h1>All Posts</h1>
+<%= link_to "NEW POST", new_post_path %>
+<br>
+<div style="text-align:center">
+<% @posts.each do |post| %>
+    <h1>Title:</h1>
+
+    <p> <%= post.title %><p>
+    <h1>Description:</h1>
+
+    <p> <%= post.description %><p>
+    <%= link_to "View Post", post %>
+    <p>
+
+    <% post.images.each do |image|%>
+ opmm
+      <%= image_tag(image, style: "object-fit: contain; width: 200px; height: 200px") %>
+
+
+    <%end%>
+  </p>
+  <%= like = post.likes.where(user_id:1)%>
+
+  <% if like.length == 0%>
+  <%= button_to "like", post_like_path, params: {post_id: post.id}, method: :post %>
+  <%else%>
+  <%= like[0].id%>
+   <%= button_to "UNlike", post_unlike_path, params: {post_id: post.id, like_id: like[0].id }, method: :post %>
+
+  <% end %>
+
+    LIKES:  <%= post.likes.count %>
+    COMMENTS: <%= post.comments.count%>
+    <hr>
+
+<%end %>
+</div>

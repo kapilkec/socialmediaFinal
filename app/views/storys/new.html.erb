@@ -1,0 +1,8 @@
+<%= form_with model: @story ,url:new_story_path do |form| %>
+  <div>
+    <%= form.label :note %><br>
+    <%= form.text_field :note %>
+
+    <%= form.submit %>
+  </div>
+<% end %>

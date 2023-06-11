@@ -1,0 +1,26 @@
+
+show page
+<h3>TITLE</h3>
+<%= @post.title%>
+<h3>DESCRIPTION</h3>
+<%= @post.description%>
+<br>
+ <% @post.images.each do |image|%>
+ opmm
+      <%= image_tag(image, style: "object-fit: contain; width: 200px; height: 200px") %>
+
+
+    <%end%>
+    <br>
+<%= link_to "Edit", edit_post_path(@post) %>
+<br>
+ <%= link_to "Destroy", post_path(@post), data: {
+                    turbo_method: :delete,
+                    turbo_confirm: "Are you sure?"
+                  } %>
+<br>
+
+<%= render "comments/show", post: @post %>
+<hr>
+New Comment
+<%= render "comments/form", post: @post %>
