@@ -1,9 +1,9 @@
 class Post < ApplicationRecord
   validates :title, presence: true
-  has_many :comments
-  has_many :likes ,as: :likeable
+  has_many :comments, dependent: :destroy
+  has_many :likes ,as: :likeable ,dependent: :destroy
  validates :description,presence: true,  length: { minimum: 10 }
-  has_many_attached :images
+  has_many_attached :images ,dependent: :destroy
   before_create :randomize_id
 
   private

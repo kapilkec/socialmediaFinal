@@ -1,0 +1,25 @@
+<%= form_with model: [ group, group.members.build ], url: add_to_group_path do |form| %>
+
+    <p>CHOOSE YOUR INTERESET LEVEL IN THIS CATEGORY OF GROUPS</p>
+    <%= form.radio_button :rating, '1' %>
+  <%= form.label :rating, '1' %><br>
+
+   <%= form.radio_button :rating, '2' %>
+  <%= form.label :rating, '2' %><br>
+
+   <%= form.radio_button :rating, '3' %>
+  <%= form.label :rating, '3' %><br>
+
+   <%= form.radio_button :rating, '4' %>
+  <%= form.label :rating, '4' %><br>
+
+   <%= form.radio_button :rating, '5' %>
+  <%= form.label :rating, '5' %><br>
+
+ <%= form.text_field :group_id, type:"hidden" , value:group.id%>
+
+
+
+    <%= form.submit 'JOIN GROUP'%>
+  </p>
+<% end %>

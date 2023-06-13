@@ -16,6 +16,17 @@ Rails.application.routes.draw do
   post 'comments/like/delete', to: 'likes#deleteCommentLike', as:'comment_unlike'
 
   # Defines the root path route ("/")
+  # For group
+  get 'groups', to:'groups#show'
+  get 'groups/new' , to:'groups#new'
+    get 'groups/mygroups' , to:'groups#mygroups'
+  post 'groups/new/create' , to:'groups#create', as:'new_group'
+  post 'groups/addUser', to:'members#create', as:'add_to_group'
+  post 'groups/deleteGroups', to:'groups#delete', as:'delete_group'
+
+
+  # get 'groups/mygroups', to:'groups#mygroup'
+
   root "posts#index"
   resources :likes, only: [:create, :destroy]
   resources :posts do

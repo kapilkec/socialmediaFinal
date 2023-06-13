@@ -1,0 +1,11 @@
+
+<h3> GROUP NAME: <%= group.name %> </h3>
+<h3> GROUP BIO: <%= group.bio %> </h3>
+<h3> GROUP CATEGORY: <%= group.community.name %> </h3>
+
+
+<%= button_to "Delete Group" , delete_group_path, params: {group_id: group.id}, method: :post %>
+
+<%= render "members/form" , group: group %>
+
+<hr>

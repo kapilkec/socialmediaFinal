@@ -1,0 +1,14 @@
+Creating a group
+
+<%= form_with model: @group, url:new_group_path do |form| %>
+  <%= form.label :name %>
+  <%= form.text_field :name %>
+  <%= form.label :bio %>
+  <%= form.text_field :bio %>
+  <%= form.label :category %>
+    <%= form.collection_select :category, @communitys, :id, :category %>
+  <%# <%= form.label :category %>
+  <%# <%= form.select :role, options_for_select(@communitys) %>
+
+  <%= form.submit 'JOIN GROUP' %>
+<% end %>
