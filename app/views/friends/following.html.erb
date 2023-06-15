@@ -1,7 +1,12 @@
-FOLLOWING
-<% @records.each do |record| %>
-<% user = User.find(record.toUser) %>
-<% if user != nil %>
-<p> <%= user.name %> <%= user.email %> <%= render "follow", touser: record.toUser %>
-<%end%>
-<%end%>
+<h1>Following</h1>
+
+<ul class="list-group list-group-flush followList">
+    <% @records.each do |record| %>
+            <% user = User.find(record.toUser) %>
+            <% if user != nil %>
+            <%= render "listFriend", userName: user.name, userEmail: user.email, userId:record.toUser %>
+
+            <%end%>
+    <%end%>
+
+</ul>

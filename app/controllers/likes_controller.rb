@@ -22,7 +22,7 @@ class LikesController < ApplicationController
       flash[:alert] = "Already liked"
     end
 
-    redirect_to root_path
+    redirect_to post_path(params[:post_id])
   end
 
 
@@ -40,9 +40,9 @@ class LikesController < ApplicationController
     @comment = Comment.find(params[:comment_id])
 
     @lik = @comment.likes.find(params[:like_id])
-    
+
     @lik.destroy
-    redirect_to root_path
+      redirect_to post_path(params[:post_id]) 
   end
 
   def like_params

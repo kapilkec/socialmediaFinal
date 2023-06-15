@@ -1,0 +1,97 @@
+
+<%= stylesheet_link_tag 'navbar' %>
+
+<nav class="navbar navbar-expand-lg navbar-dark navbarCustom">
+
+
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+           <%= link_to "Home", root_path, class: 'nav-link' %>
+        </li>
+        <li class="nav-item">
+             <%= link_to "New Post", new_post_path, class: 'nav-link' %>
+        </li>
+
+         <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Groups
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+             <li class="dropdown-item">
+                 <%= link_to "All groups", groups_path, class: 'dropdown-item' %>
+             </li>
+
+            <li><hr class="dropdown-divider"></li>
+              <li class="dropdown-item">
+                 <%= link_to "Create Group",groups_new_path, class: 'dropdown-item' %>
+              </li>
+              <li class="dropdown-item">
+                 <%= link_to "My Groups",groups_mygroups_path, class: 'dropdown-item' %>
+              </li>
+          </ul>
+        </li>
+
+
+       <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Peoples
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+             <li class="dropdown-item">
+                 <%= link_to "All People", allusers_path, class: 'dropdown-item' %>
+              </li>
+
+            <li><hr class="dropdown-divider"></li>
+            <li class="dropdown-item">
+                 <%= link_to "Following", allusers_following_path, class: 'dropdown-item' %>
+            </li>
+            <li class="dropdown-item">
+                 <%= link_to "Followers", allusers_followers_path, class: 'dropdown-item' %>
+            </li>
+          </ul>
+        </li>
+
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Story
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+             <li class="dropdown-item">
+                 <%= link_to "Story", storys_path, class: 'dropdown-item' %>
+              </li>
+
+              <li><hr class="dropdown-divider"></li>
+            <li class="dropdown-item">
+                 <%= link_to "Add Your Story", add_story_path, class: 'dropdown-item' %>
+              </li>
+          </ul>
+        </li>
+        <% if deviseuser_signed_in? %>
+             <li class="nav-item">
+              <%= button_to "SigOut", destroy_deviseuser_session_path, method: :delete, class: 'nav-link' %>
+            </li>
+             <li class="nav-item">
+               <%= link_to "Edit", edit_deviseuser_registration_path , class: 'nav-link' %>
+            </li>
+            <li class="nav-item">
+               <%= link_to "Delete Account", cancel_deviseuser_registration_path , class: 'nav-link' %>
+            </li>
+        <% else %>
+            <li class="nav-item">
+              <%= link_to "Signup", new_deviseuser_registration_path, class: 'nav-link' %>
+            </li>
+        <% end %>
+
+
+
+      </ul>
+
+
+  </div>
+</nav>

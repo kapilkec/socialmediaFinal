@@ -1,0 +1,16 @@
+<% stylesheet_link_tag "friendsListFriend"%>
+    <li class="list-group-item d-flex ">
+        <div class="d-flex flex-column">
+            <div>
+                <i class="fa-solid fa-user"></i>
+                <%= userName %>
+            </div>
+            <div>
+                <%= userEmail %>
+            </div>
+        </div>
+        <div class="button">
+         <%= render 'follow' , touser:userId %>
+        </div>
+    <br>
+    </li>

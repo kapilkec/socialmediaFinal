@@ -3,4 +3,6 @@ class User < ApplicationRecord
   has_one :story,dependent: :destroy
   has_many :groups,dependent: :destroy
   has_many :communitys , :through => :groups,dependent: :destroy
+  has_many :posts
+  has_many :comments
 end

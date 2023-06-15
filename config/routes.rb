@@ -1,7 +1,22 @@
 Rails.application.routes.draw do
-  get 'storys', to: 'storys#index'
+  # For devise
+
+  # devise_for :deviseusers
+
+  # devise_scope :deviceuser do
+  #   get '/users', to: 'devise/registrations#new'
+  #   get '/users/password', to: 'devise/passwords#new'
+  #   get '/users/sign_out' => 'devise/sessions#destroy'
+  # end
+  devise_for :deviseusers, controllers: {
+    registrations: 'deviceusers/registrations'
+  }
+
+
+ get 'storys', to: 'storys#index'
    delete 'delete/story', to:'storys#delete', as: 'delete_story'
    post 'create/story', to:'storys#create', as:'new_story'
+   get 'add/story', to:"storys#new", as:"add_story"
 
   get 'allusers', to: 'friends#index'
   get 'allusers/following', to: 'friends#following'
@@ -23,6 +38,9 @@ Rails.application.routes.draw do
   post 'groups/new/create' , to:'groups#create', as:'new_group'
   post 'groups/addUser', to:'members#create', as:'add_to_group'
   post 'groups/deleteGroups', to:'groups#delete', as:'delete_group'
+  get 'groups/:id/view', to: 'groups#view', as:'view_group'
+
+
 
 
   # get 'groups/mygroups', to:'groups#mygroup'
@@ -32,6 +50,9 @@ Rails.application.routes.draw do
   resources :posts do
     resources :comments
   end
+
+  # get 'posts/:postid/comment/:id/', to:'memb'
+
   resources :users do
     resources :likes
   end

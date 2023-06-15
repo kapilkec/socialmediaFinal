@@ -1,0 +1,26 @@
+.commentContent{
+    font-weight: 100;
+}
+
+    .eachComment{
+        margin-top:10px;
+        margin-bottom: 10px;
+        justify-content: space-between;
+    }
+
+    .commenterName{
+        margin-right: 10px;
+
+    }
+
+    .fa-user{
+        margin-right: 2px;
+    }
+
+ .commentRight{
+    margin-right: 10px;
+ }
+
+ .likesButton{
+    margin-top: -5%;
+ }

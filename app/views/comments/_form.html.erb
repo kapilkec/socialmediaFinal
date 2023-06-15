@@ -1,16 +1,29 @@
 
-<br>
-Adding a comment
-<%= form_with model: [ post, post.comments.build ] do |form| %>
+<% stylesheet_link_tag "commentsForm"%>
+
+<%= form_with model:[ post, post.comments.build ],url:post_comments_path(post) do |form| %>
   <p>
-    <%= form.label :commenter %><br>
-    <%= form.text_field :commenter %>
+
+    <%= form.text_field :commenter,value: User.first.name, type: "hidden"  %>
   </p>
+
   <p>
-    <%= form.label :comment %><br>
-    <%= form.text_area :comment  %>
+    <span>
+        <%= form.text_field :comment, placeholder:"Add a new comment",class:"commentInput", required: true %>
+    </span>
+    <span>
+       <% post.errors.full_messages_for(:comment).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+      </span>
+    <span>
+       <%= button_tag type: :submit, class:"commentSubmit"  do %>
+           <span class="material-symbols-outlined commentSubmitButton">
+                  send
+            </span>
+      <% end %>
+    </span>
   </p>
-  <p>
-    <%= form.submit %>
-  </p>
+
 <% end %>
+

@@ -1,3 +1,75 @@
+<%= stylesheet_link_tag 'commentsShow' %>
+
+
+<%  post.comments.each do |comment| %>
+  <% if comment.id %>
+    <div class="eachComment d-flex">
+        <div  class="d-flex gap-2">
+            <div>
+            <i class="fa-solid fa-user  "></i>
+            </div>
+            <div class="commentName commenterName">
+                  <%= comment.commenter %>
+            </div>
+            <div class="commentContent  ">
+              <%= comment.comment %>
+            </div>
+        </div>
+        <div class="right d-flex gap-2" >
+            <div class="d-flex">
+                <div >
+                  <% like = comment.likes.where(user_id:1)%>
+
+                  <% if like.length == 0%>
+                       <%= button_to comment_like_path, params: {comment_id: comment.id, post_id: post.id}, class:"likesButton",method: :post, class:'likesButton'  do %>
+                            <i class="fa-regular fa-heart "></i>
+                        <% end %>
+                  <%else%>
+                        <%= button_to   comment_unlike_path, params: {comment_id: comment.id,post_id:post.id, like_id: like[0].id }, method: :post, class:'likesButton'   do %>
+                            <i class="fa-solid fa-heart "></i>
+                        <%end%>
+                 <% end %>
+                 </div>
+                 <div>
+                 <%= comment.likes.count %>
+                  </div>
+            </div>
+
+            <div class="commentRight">
+
+                  <%= link_to  edit_post_comment_path(post_id:post, id:comment),method: :get  do %>
+                    <i class="fa-regular fa-pen-to-square"></i>
+                  <%end%>
+
+            </div>
+            <div>
+                  <%= link_to   [comment.post, comment],class:"editDelete", data: {
+                  turbo_method: :delete,
+                  turbo_confirm: "Are you sure?"
+                   }  do %>
+                                   <i class="fa-solid fa-trash" style="color: #ec0936;"></i>
+                  <%end%>
+            </div>
+
+        </div>
+
+
+    </div>
+    <hr>
+<% end %>
+<% end %>
+
+
+
+
+
+
+
+
+
+<%# ```````````````````````````````````` %>
+<% if false %>
+
 <h2>Comments</h2>
 <%  post.comments.each do |comment| %>
   <p>
@@ -9,7 +81,7 @@
     <strong>Comment:</strong>
     <%= comment.comment %>
   </p>
-  <%= like = comment.likes.where(user_id:1)%>
+  <% like = comment.likes.where(user_id:1)%>
 
   <% if like.length == 0%>
   <%= button_to "like", comment_like_path, params: {comment_id: comment.id}, method: :post %>
@@ -30,4 +102,7 @@
   <br>
   <%= link_to  "Edit", edit_post_comment_path(post, comment) %>
   <p>``````````````````````````</p>
+<% end %>
+
+
 <% end %>

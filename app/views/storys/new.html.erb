@@ -1,8 +1,12 @@
-<%= form_with model: @story ,url:new_story_path do |form| %>
+<h1>Add your Story </h1>
+<%= form_with model: @story ,url:new_story_path , class:"bg-light text-dark story_form" do |form| %>
   <div>
-    <%= form.label :note %><br>
-    <%= form.text_field :note %>
-
-    <%= form.submit %>
+    <%= form.label :note , class:"form-label" %>
+    <%= form.text_field :note , class:"form-control" %>
+    <br>
+    <%= form.label :image , class:"form-label" %>
+    <%= form.file_field :image, multiple:false, class:"form-control"%>
+    <br>
+    <%= form.submit "submit" , class:"btn btn-success w-100"%>
   </div>
 <% end %>

@@ -14,7 +14,7 @@ class StorysController < ApplicationController
   end
 
   def create
-    @user = User.find(1)
+    @user = User.find(2)
 
     @story = @user.create_story(article_params)
 
@@ -27,6 +27,6 @@ class StorysController < ApplicationController
 
   private
     def article_params
-      params.require(:story).permit(:note)
+      params.require(:story).permit(:note,:image)
     end
 end

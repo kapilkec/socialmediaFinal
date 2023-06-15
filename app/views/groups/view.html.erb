@@ -1,0 +1,16 @@
+
+<br>
+<h1> <b> Group name: </b><%= @group.name %> </h1>
+<br>
+<h1> <b>Group Bio: </b><%= @group.bio %> </h1>
+<br>
+<h1> MEMBERS </h1>
+<br>
+<ul class="list-group list-group-flush followList">
+    <% members = @group.members %>
+        <% members.each do |member| %>
+            <% user = User.find(member.user_id) %>
+             <%= render "showMember", userName: user.name, userEmail: user.email, userId: user.id %>
+    <% end %>
+
+</ul>

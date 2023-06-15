@@ -1,4 +1,43 @@
-<h1>Storys#index</h1>
+ <%= stylesheet_link_tag 'storyIndex' %>
+ 
+  <br>
+  <h5>
+      Stories
+  </h5>
+<div class="d-flex" >
+ <% @storys.each do |story| %>
+    <div class="card border-success mb-3 mx-3" style="max-width: 18rem;">
+  <div class="card-header bg-transparent border-success"><%= story.user.name%></div>
+  <div class="card-body text-success">
+     <%= image_tag(story.image ,class:'img-fluid' )%>
+  </div>
+  <div class="card-footer bg-transparent border-success d-flex justify-content-between">
+    <div>
+        <%=story.note%>
+    </div>
+    <div>
+      <%= button_to   delete_story_path(story.id),class:"storyDelete" , method: :delete  do%>
+         <i class="fa-solid fa-trash" style="color: #ec0936;"></i>
+       <%end%>
+    </div>
+  </div>
+</div>
+
+
+
+ <% end %>
+
+</div>
+
+
+
+
+
+
+
+
+
+<% if false%>
 
  <% @storys.each do |story| %>
  <%# for status deleting %>
@@ -15,7 +54,12 @@
 <br>
 <%= story.user.name %>
 
+<%= image_tag(story.image ,class:'img-fluid' )%>
+
 <%= button_to "DELETE", delete_story_path(story.id) , method: :delete %>
 
 <hr>
 <%end%>
+
+
+<% end %>

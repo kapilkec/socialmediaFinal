@@ -18,9 +18,14 @@ class CommentsController < ApplicationController
 end
 
    def create
-
+    p '``````````````````````````````'
+    @user = User.find(1)
     @post = Post.find(params[:post_id])
-    @comment = @post.comments.create(comment_params)
+    param =  params.require(:comment)
+    @comment = Comment.new(commenter: param[:commenter], comment: param[:comment], user_id: @user.id)
+    @post.comments << @comment
+    @comment.save
+    @post.save
     redirect_to post_path(:post_id)
   end
    def destroy

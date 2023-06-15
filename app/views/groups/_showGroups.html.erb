@@ -1,11 +1,40 @@
+ <div class="col">
+    <div class="card" style="width: 23rem;">
+        <div class="card-body">
+            <h5 class="card-title"> Name : <%= group.name %> </h5>
+            <p class="card-text">  Bio : <%= group.bio %> </p>
+            <p class="card-text">  Category : <%= group.community.name %> </p>
 
-<h3> GROUP NAME: <%= group.name %> </h3>
-<h3> GROUP BIO: <%= group.bio %> </h3>
-<h3> GROUP CATEGORY: <%= group.community.name %> </h3>
+            <div class="d-flex">
+                <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Join group
+                </button>
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Join this group</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <%= render "members/form" , group: group %>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                    </div>
+                </div>
+                </div>
+                <div>
+                <%= button_to "Delete Group" , delete_group_path, params: {group_id: group.id}, method: :post , class:"btn btn-danger btn-sm mx-2"%>
 
+                </div>
+                <div>
+                <%= button_to "View Group" , view_group_path(id:group.id), method: :get , class:"btn btn-success btn-sm mx-2"%>
 
-<%= button_to "Delete Group" , delete_group_path, params: {group_id: group.id}, method: :post %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-<%= render "members/form" , group: group %>
-
-<hr>

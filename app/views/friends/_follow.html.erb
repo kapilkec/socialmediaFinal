@@ -1,10 +1,11 @@
 
+<%= stylesheet_link_tag 'friendsFollow' %>
 
  <% follow_check = Friend.where(fromUser:1,toUser:touser) %>
  <% if follow_check.length == 0 %>
- <%= button_to "follow", set_follow_path, params: {friend: {fromUser:1,toUser: touser}}, method: :post %>
+ <%= button_to "Follow", set_follow_path, params: {friend: {fromUser:1,toUser: touser}},class:"btn btn-success btn-sm", method: :post %>
  <% else %>
- <%= follow_check[0].id %>
-  <%= button_to "UNfollow", set_unfollow_path(follow_check[0]), method: :delete %>
+
+  <%= button_to "Unfollow", set_unfollow_path(follow_check[0]),class:"btn btn-danger btn-sm",  method: :delete %>
 <% end %>
 

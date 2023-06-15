@@ -22,7 +22,7 @@ class FriendsController < ApplicationController
   def followers
     @records = Friend.where(toUser:1)
   end
-  
+
   def friend_params
     params.require(:friend).permit(:fromUser, :toUser)
   end

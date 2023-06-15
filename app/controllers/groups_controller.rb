@@ -17,13 +17,13 @@ class GroupsController < ApplicationController
     @user.save
     @community.save
 
-    redirect_to root_path
+    redirect_to groups_path
   end
 
   def mygroups
     @userid = 1
     @members = Member.all.where(user_id:@userid)
-    
+
   end
 
   def delete
@@ -31,6 +31,12 @@ class GroupsController < ApplicationController
     @group = Group.find(params[:group_id])
     @group.destroy
     redirect_to groups_mygroups_path
+  end
+
+  def view
+    p'``````````````````````'
+    @group = Group.find(params[:id])
+    
   end
 
 end

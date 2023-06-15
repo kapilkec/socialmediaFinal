@@ -1,4 +1,5 @@
 class PostsController < ApplicationController
+  before_action :authenticate_deviseuser!
   def index
     @posts = Post.all
   end
@@ -10,9 +11,12 @@ class PostsController < ApplicationController
   end
   def create
     p "ctrh``````````````````````````"
+    @user = User.find(1)
     @post = Post.new(post_params)
-
+    @user.posts << @post
     if @post.save
+
+      @user.save
       redirect_to  posts_path
     else
       render :new, status: :unprocessable_entity
@@ -20,10 +24,12 @@ class PostsController < ApplicationController
   end
 
   def edit
+
     @post = Post.find(params[:id])
   end
 
     def update
+
     @post = Post.find(params[:id])
 
     if @post.update(post_params)

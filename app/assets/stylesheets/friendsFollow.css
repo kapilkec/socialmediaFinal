@@ -1,0 +1,29 @@
+.followUnfollow {
+  background-color: grey;
+  color: white;
+  border-radius: 25px;
+  border: none;
+}
+
+.list-group {
+  width: 30%;
+  margin-left: auto;
+  margin-right: auto;
+
+}
+
+.list-group-item{
+    padding:25px;
+}
+
+.list-group .button{
+    margin-top: 2%;
+   margin-left: auto;
+}
+
+.followList{
+     border-radius: 25px;
+   border:2px solid rgb(155, 152, 152);
+  box-shadow: 2px 2px rgba(0, 0, 0, 0.075);
+  margin-top: 30px;
+}

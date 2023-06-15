@@ -1,14 +1,24 @@
-Creating a group
 
-<%= form_with model: @group, url:new_group_path do |form| %>
-  <%= form.label :name %>
-  <%= form.text_field :name %>
-  <%= form.label :bio %>
-  <%= form.text_field :bio %>
-  <%= form.label :category %>
+
+
+<h1>Creating a group
+ </h1>
+<%= form_with model: @group ,url:new_group_path , class:"bg-light text-dark story_form" do |form| %>
+  <div>
+    <%= form.label :name , class:"form-label" %>
+    <%= form.text_field :name ,required: true, class:"form-control" %>
+     <% @group.errors.full_messages_for(:name).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+    <br>
+    <%= form.label :bio , class:"form-label" %>
+    <%= form.text_field :bio, required: true, class:"form-control"%>
+     <% @group.errors.full_messages_for(:bio).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+    <br>
+    <%= form.label :category %>
     <%= form.collection_select :category, @communitys, :id, :category %>
-  <%# <%= form.label :category %>
-  <%# <%= form.select :role, options_for_select(@communitys) %>
-
-  <%= form.submit 'JOIN GROUP' %>
+    <%= form.submit "submit" , class:"btn btn-success w-100 mt-4" %>
+  </div>
 <% end %>

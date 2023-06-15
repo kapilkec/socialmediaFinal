@@ -1,0 +1,20 @@
+ .newPostForm{
+    width:70%;
+    padding:3%;
+    border-radius:5%;
+       border:2px solid rgb(155, 152, 152);
+  box-shadow: 2px 2px rgba(0, 0, 0, 0.075);
+ }
+
+.newPost{
+   margin-left: 15%;
+}
+
+.newPost h1{
+    /* margin-left: 10%; */
+    margin-top: 5%;
+    margin-right: 25%;
+    margin-bottom: 5%;
+}
+
+

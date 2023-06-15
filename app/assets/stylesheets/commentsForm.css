@@ -1,0 +1,30 @@
+.commentInput{
+
+    width: 50%;
+       background-color: #f6f0f0;
+    border: 0.5px solid #8b8888;
+    border-radius: 25px;
+    height: 25px;
+    padding-left: 20px;
+
+}
+
+.commentSubmit{
+    border: none;
+    background-color: white;
+    vertical-align: middle;
+}
+
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48
+}
+
+.commentSubmitButton{
+
+
+}
