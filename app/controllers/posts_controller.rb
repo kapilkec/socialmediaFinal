@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :authenticate_deviseuser!
+  # before_action :authenticate_deviseuser!
   def index
     @posts = Post.all
   end

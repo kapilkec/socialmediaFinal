@@ -14,7 +14,7 @@ Devise.setup do |config|
   # confirmation, reset password and unlock tokens in the database.
   # Devise will use the `secret_key_base` as its `secret_key`
   # by default. You can change it below and use your own secret key.
-  # config.secret_key = 'd98b2f34c7544736c401c9676565a87efd9ce867d34a445a5cf6fcdd9905f57300c15f789d28479be1356544e2083e681ce63b71649e57726f15042ae2efe54f'
+  # config.secret_key = 'e7a0db08d2f04d75c909fe0bbb3cc8c4ba11e6ea2ea389835b87e84676b4ed916e878da01b1f46b6a7b1bb6185c3ae362f4b20b21939c0671a1a5235beabe79a'
 
   # ==> Controller configuration
   # Configure the parent class to the devise controllers.
@@ -46,7 +46,7 @@ Devise.setup do |config|
   # session. If you need permissions, you should implement that in a before filter.
   # You can also supply a hash where the value is a boolean determining whether
   # or not authentication should be aborted when the value is not present.
-  config.authentication_keys = [:email]
+  # config.authentication_keys = [:email]
 
   # Configure parameters from the request object used for authentication. Each entry
   # given should be a request method and it will automatically be passed to the
@@ -126,7 +126,7 @@ Devise.setup do |config|
   config.stretches = Rails.env.test? ? 1 : 12
 
   # Set up a pepper to generate the hashed password.
-  # config.pepper = 'd259fb8458f2ba014ffd723105efa9d6aebc64dd7195bde7f77d74a9ec565ec3be1b9ebf0f0b1044dbe7ca5d2e0ea487021f3396426b6605e04549ac930d070d'
+  # config.pepper = '3d78abb4f45f54f0fad316bd53ef599caeab76a0b4c194dc931127292590f5ea9d3240b865e07d4046c8ebdcad1049edbda1091371d4040ba8b56ee2c9ec09a8'
 
   # Send a notification to the original email when the user's email is changed.
   # config.send_email_changed_notification = false
@@ -209,7 +209,6 @@ Devise.setup do |config|
   # Number of authentication tries before locking an account if lock_strategy
   # is failed attempts.
   # config.maximum_attempts = 20
-  
 
   # Time interval to unlock the account if :time is enabled as unlock_strategy.
   # config.unlock_in = 1.hour

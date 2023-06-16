@@ -72,19 +72,20 @@
               </li>
           </ul>
         </li>
-        <% if deviseuser_signed_in? %>
+
+        <% if  user_signed_in? %>
              <li class="nav-item">
-              <%= button_to "SigOut", destroy_deviseuser_session_path, method: :delete, class: 'nav-link' %>
+              <%= button_to "SigOut", destroy_user_session_path, method: :delete, class: 'nav-link' %>
             </li>
              <li class="nav-item">
-               <%= link_to "Edit", edit_deviseuser_registration_path , class: 'nav-link' %>
+               <%= link_to "Edit", edit_user_registration_path , class: 'nav-link' %>
             </li>
             <li class="nav-item">
-               <%= link_to "Delete Account", cancel_deviseuser_registration_path , class: 'nav-link' %>
+               <%= link_to "Delete Account", cancel_user_registration_path , class: 'nav-link' %>
             </li>
         <% else %>
             <li class="nav-item">
-              <%= link_to "Signup", new_deviseuser_registration_path, class: 'nav-link' %>
+              <%= link_to "Signup", new_user_registration_path, class: 'nav-link' %>
             </li>
         <% end %>
 

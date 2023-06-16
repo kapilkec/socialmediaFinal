@@ -14,7 +14,7 @@ class StorysController < ApplicationController
   end
 
   def create
-    @user = User.find(2)
+    @user = User.find_by(current_user.id)
 
     @story = @user.create_story(article_params)
 

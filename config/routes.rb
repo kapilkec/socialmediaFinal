@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   # For devise
 
   # devise_for :deviseusers
@@ -8,8 +9,9 @@ Rails.application.routes.draw do
   #   get '/users/password', to: 'devise/passwords#new'
   #   get '/users/sign_out' => 'devise/sessions#destroy'
   # end
-  devise_for :deviseusers, controllers: {
-    registrations: 'deviceusers/registrations'
+
+  devise_for :users, controllers: {
+    registrations: 'users/registrations'
   }
 
 
@@ -34,7 +36,7 @@ Rails.application.routes.draw do
   # For group
   get 'groups', to:'groups#show'
   get 'groups/new' , to:'groups#new'
-    get 'groups/mygroups' , to:'groups#mygroups'
+  get 'groups/mygroups' , to:'groups#mygroups'
   post 'groups/new/create' , to:'groups#create', as:'new_group'
   post 'groups/addUser', to:'members#create', as:'add_to_group'
   post 'groups/deleteGroups', to:'groups#delete', as:'delete_group'
