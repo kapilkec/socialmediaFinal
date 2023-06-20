@@ -1,0 +1,125 @@
+
+<%= stylesheet_link_tag 'postsIndex' %>
+
+
+
+<div class="row postParent bg-light" >
+
+<% posts = Post.all%>
+<% posts.each do |post| %>
+<% memberCheck = Group.find(group.id).members.where(user_id:post.user.id) %>
+<% if memberCheck.length == 0 %>
+<%next%>
+<% end %>
+<%# Checking for privacy %>
+<%if user_signed_in? == false and post.privacy=="Private"%>
+
+<% next %>
+
+<% end %>
+
+<% if user_signed_in? and post.privacy == "Private" and  post.user.id != current_user.id%>
+
+
+<% friend = Friend.where(fromUser: post.user.id, toUser: current_user.id )  %>
+
+  <% if friend.length == 0 %>
+
+      <% next%>
+  <% end %>
+<% end %>
+
+
+<div class ="row" style="justify-content:center">
+<div class="card mb-3 col-md-6   text-dark">
+  <div class="card-header row">
+    <h5 class="card-title col-md-6">
+            <i class="fa-solid fa-user  "></i>
+             <%= post.user.name%></h5>
+    <h5 class="card-title col-md-6 ">
+ <%= link_to   post do %>
+ <button type="button" class="btn btn-primary float-md-end">View</button>
+
+ <%end%>
+  </h5>
+
+  </div>
+  <div class="card-body">
+    <h6 class="card-subtitle mb-2 text-muted"><%= post.title%></h6>
+
+
+      <% post.images.each do |image|%>
+
+      <%= image_tag(image ,class:'img-fluid' )%>
+     <%end%>
+
+    <p class="card-text"><%= post.description%></p>
+    <hr>
+    <div class="d-flex flex-row" >
+      <% like = post.likes.where(user_id:1)%>
+        <% if like.length == 0%>
+            <%= button_to post_like_path, params: {post_id: post.id}, class:"likesButton",method: :post, class:'likesButton'  do %>
+            <i class="fa-regular fa-heart likUnlikeIcon"></i>
+            <%end%>
+        <%else%>
+
+            <%= button_to   post_unlike_path, params: {post_id: post.id, like_id: like[0].id }, method: :post, class:'likesButton'   do %>
+            <i class="fa-solid fa-heart likUnlikeIcon"></i>
+            <%end%>
+        <% end %>
+
+        <div class="post-info">
+          <span class="likes-count"><i class="bi bi-heart-fill"></i> <%= post.likes.count %> Likes</span>
+          <span class="comment-count"><i class="bi bi-chat-fill"></i>  <%= post.comments.count %> Comments</span>
+        </div>
+      </div>
+
+  </div>
+</div>
+
+
+
+
+<%# ```````````````````````````` %>
+
+<% if false %>
+
+<div class ="row" style="justify-content:center">
+<div class="col-md-6" >
+    <h1>Title:</h1>
+
+    <p> <%= post.title %><p>
+    <h1>Description:</h1>
+
+    <p> <%= post.description %><p>
+    <%= link_to "View Post", post %>
+    <p>
+
+    <% post.images.each do |image|%>
+
+      <%= image_tag(image, style: "object-fit: contain; width: 200px; height: 200px") %>
+
+
+    <%end%>
+  </p>
+  <%= like = post.likes.where(user_id:1)%>
+
+  <% if like.length == 0%>
+  <%= button_to "like", post_like_path, params: {post_id: post.id}, method: :post %>
+  <%else%>
+  <%= like[0].id%>
+   <%= button_to "UNlike", post_unlike_path, params: {post_id: post.id, like_id: like[0].id }, method: :post %>
+
+  <% end %>
+
+    LIKES:  <%= post.likes.count %>
+    COMMENTS: <%= post.comments.count%>
+    <hr>
+</div>
+</div>
+
+<%end%>
+<%# for if false %>
+
+<%end %>
+</div>

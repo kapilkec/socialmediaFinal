@@ -7,6 +7,19 @@ class Post < ApplicationRecord
   before_create :randomize_id
   belongs_to :user
 
+  
+
+  scope :likes_greater_than_one, -> {
+    joins("LEFT JOIN (SELECT likeable_id, COUNT(id) AS count_likes FROM likes WHERE likeable_type = 'Post' GROUP BY likeable_id) subquery ON subquery.likeable_id = posts.id")
+    .select('posts.*, subquery.count_likes')
+    .where('subquery.count_likes > ?', 1)
+  }
+
+  scope :with_zero_comments, -> { left_outer_joins(:comments).where(comments: { id: nil }) }
+
+
+
+
   private
   def randomize_id
 

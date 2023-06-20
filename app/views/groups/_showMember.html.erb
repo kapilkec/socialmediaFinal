@@ -10,7 +10,9 @@
             </div>
         </div>
         <div class="button">
+            <% if current_user.id != userId %>
          <%= render 'friends/follow' , touser:userId %>
+         <% end%>
         </div>
     <br>
     </li>

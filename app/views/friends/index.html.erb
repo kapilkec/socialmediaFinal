@@ -1,6 +1,8 @@
 <h1>List of all instagram users</h1>
 <ul class="list-group list-group-flush followList">
     <% @users.each do |user| %>
-          <%=render "listFriend", userName: user.name, userEmail: user.email, userId: user.id %>
+          <% if user != current_user %>
+                <%= render "listFriend", userName: user.name, userEmail: user.email, userId: user.id %>
+          <% end %>
     <% end %>
 </ul>

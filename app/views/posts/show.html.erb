@@ -1,105 +1,37 @@
-
-<%= stylesheet_link_tag 'postsShow' %>
-
-<div class ="row" style="justify-content:center">
-<div class="card mb-3 col-md-6 ">
-  <div class="card-header row">
-    <h5 class="card-title col-md-6 postUserName">
-        <i class="fa-solid fa-user  "></i>
-        <span class="userName">
-      <%= @post.user.name%></h5>
-      </span>
-    <h5 class="card-title col-md-6 ">
- <div class="d-flex justify-content-end">
-        <div style="margin-right:5px">
-          <%= link_to  edit_post_path(@post), class:"editDelete" do%>
-          <button class="btn btn-sm btn-primary"> EDIT</button>
-          <%end%>
-       </div>
-      <div>
-                <%= link_to  post_path(@post),class:"editDelete", data: {
-                    turbo_method: :delete,
-                    turbo_confirm: "Are you sure?"
-                  } do %>
-                <button class="btn btn-sm btn-danger"> DELETE</button>
-                    <%end%>
-      </div>
-  </div>
-  </h5>
-  </div>
-  <div class="card-body">
-    <h6 class="card-subtitle mb-2 text-muted"><%= @post.title%></h6>
-
-
-      <% @post.images.each do |image|%>
-
-      <%= image_tag(image ,class:'img-fluid' )%>
-     <%end%>
-
-    <p class="card-text"><%= @post.description%></p>
-    <div class="d-flex flex-row" >
-          <% like = @post.likes.where(user_id:1)%>
-          <% if like.length == 0%>
-              <%= button_to post_like_path, params: {post_id: @post.id}, class:"likesButton",method: :post, class:'likesButton'  do %>
-              <i class="fa-regular fa-heart likUnlikeIcon"></i>
-              <%end%>
-          <%else%>
-
-              <%= button_to   post_unlike_path, params: {post_id: @post.id, like_id: like[0].id }, method: :post, class:'likesButton'   do %>
-              <i class="fa-solid fa-heart likUnlikeIcon"></i>
-              <%end%>
-          <% end %>
-
-          <div class="post-info">
-            <span class="likes-count"><i class="bi bi-heart-fill"></i> <%= @post.likes.count %> Likes</span>
-            <span class="comment-count"><i class="bi bi-chat-fill"></i>  <%= @post.comments.count %> Comments</span>
-          </div>
-
-    </div>
-  <hr>
-
-      <div>
-            <%= render "comments/form", post: @post %>
-      </div>
-
-
-
-
-
-
-      <div class="row Allcomments">
-        <div class="row AllcommentsRow1">
-              All comments
+ <%= stylesheet_link_tag 'postsShow' %> <div class="row" style="justify-content:center">
+    <div class="card mb-3 col-md-6 ">
+        <div class="card-header row">
+            <h5 class="card-title col-md-6 postUserName">
+                <i class="fa-solid fa-user  "></i>
+                <span class="userName"> <%= @post.user.name%>
+            </h5>
+            </span>
+            <h5 class="card-title col-md-6 ">
+                <% if user_signed_in? and current_user.id == @post.user.id %>
+                  <div class="d-flex justify-content-end">
+                      <div style="margin-right:5px"> <%= link_to  edit_post_path(@post), class:"editDelete" do%> <button class="btn btn-sm btn-primary"> EDIT</button> <%end%> </div>
+                      <div> <%= link_to  post_path(@post),class:"editDelete", data: {
+                      turbo_method: :delete,
+                      turbo_confirm: "Are you sure?"
+                    } do %> <button class="btn btn-sm btn-danger"> DELETE</button> <%end%> </div>
+                  </div>
+                <% end %>
+            </h5>
         </div>
-        <div class="d-flex flex-column AllcommentsRow2" >
-          <%= render "comments/show", post: @post %>
-         </div>
-
-
-      </div>
-
-
-
-
- <%# ```````````````````````````` %>
-
-
-
-<% if false %>
-
-<hr>
-New Comment
-<%= render "comments/form", post: @post %>
-        <div>
-        <%= link_to  edit_post_path(@post), class:"editDelete" do%>
-        <button class="btn btn-sm btn-primary"> EDIT</button>
-        <%end%>
-
-       <%= link_to  post_path(@post),class:"editDelete", data: {
+        <div class="card-body">
+            <h6 class="card-subtitle mb-2 text-muted"><%= @post.title%></h6> <% @post.images.each do |image|%> <%= image_tag(image ,class:'img-fluid' )%> <%end%> <p class="card-text"><%= @post.description%></p>
+            <div class="d-flex flex-row"> <% like = @post.likes.where(user_id:1)%> <% if like.length == 0%> <%= button_to post_like_path, params: {post_id: @post.id}, class:"likesButton",method: :post, class:'likesButton'  do %> <i class="fa-regular fa-heart likUnlikeIcon"></i> <%end%> <%else%> <%= button_to   post_unlike_path, params: {post_id: @post.id, like_id: like[0].id }, method: :post, class:'likesButton'   do %> <i class="fa-solid fa-heart likUnlikeIcon"></i> <%end%> <% end %> <div class="post-info">
+                    <span class="likes-count"><i class="bi bi-heart-fill"></i> <%= @post.likes.count %> Likes</span>
+                    <span class="comment-count"><i class="bi bi-chat-fill"></i> <%= @post.comments.count %> Comments</span>
+                </div>
+            </div>
+            <hr>
+            <div> <%= render "comments/form", post: @post %> </div>
+            <div class="row Allcomments">
+                <div class="row AllcommentsRow1"> All comments </div>
+                <div class="d-flex flex-column AllcommentsRow2"> <%= render "comments/show", post: @post %> </div>
+            </div> <%# ```````````````````````````` %> <% if false %>
+            <hr> New Comment <%= render "comments/form", post: @post %> <div> <%= link_to  edit_post_path(@post), class:"editDelete" do%> <button class="btn btn-sm btn-primary"> EDIT</button> <%end%> <%= link_to  post_path(@post),class:"editDelete", data: {
                     turbo_method: :delete,
                     turbo_confirm: "Are you sure?"
-                  } do %>
-        <button class="btn btn-sm btn-danger"> DELETE</button>
-            <%end%>
-      </div>
-<% end %>
+                  } do %> <button class="btn btn-sm btn-danger"> DELETE</button> <%end%> </div> <% end %>

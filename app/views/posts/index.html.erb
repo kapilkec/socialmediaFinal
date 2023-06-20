@@ -3,9 +3,31 @@
 
 
 
+
 <div class="row postParent bg-light" >
 
+
 <% @posts.each do |post| %>
+
+<%# Checking for privacy %>
+<%if user_signed_in? == false and post.privacy=="Private"%>
+
+<% next %>
+
+<% end %>
+
+<% if user_signed_in? and post.privacy == "Private" and  post.user.id != current_user.id%>
+
+
+<% friend = Friend.where(fromUser: post.user.id, toUser: current_user.id,followed: true )  %>
+
+  <% if friend.length == 0 %>
+
+      <% next%>
+  <% end %>
+<% end %>
+
+
 <div class ="row" style="justify-content:center">
 <div class="card mb-3 col-md-6   text-dark">
   <div class="card-header row">
@@ -15,6 +37,7 @@
     <h5 class="card-title col-md-6 ">
  <%= link_to   post do %>
  <button type="button" class="btn btn-primary float-md-end">View</button>
+
  <%end%>
   </h5>
 
@@ -31,18 +54,24 @@
     <p class="card-text"><%= post.description%></p>
     <hr>
     <div class="d-flex flex-row" >
-      <% like = post.likes.where(user_id:1)%>
-        <% if like.length == 0%>
+      <% if user_signed_in? %>
+        <% like = post.likes.where(user_id:current_user.id)%>
+          <% if like.length == 0%>
+              <%= button_to post_like_path, params: {post_id: post.id}, class:"likesButton",method: :post, class:'likesButton'  do %>
+              <i class="fa-regular fa-heart likUnlikeIcon"></i>
+              <%end%>
+          <%else%>
+
+              <%= button_to   post_unlike_path, params: {post_id: post.id, like_id: like[0].id }, method: :post, class:'likesButton'   do %>
+              <i class="fa-solid fa-heart likUnlikeIcon"></i>
+              <%end%>
+          <% end %>
+        <% else %>
             <%= button_to post_like_path, params: {post_id: post.id}, class:"likesButton",method: :post, class:'likesButton'  do %>
-            <i class="fa-regular fa-heart likUnlikeIcon"></i>
-            <%end%>
-        <%else%>
+              <i class="fa-regular fa-heart likUnlikeIcon"></i>
+              <%end%>
 
-            <%= button_to   post_unlike_path, params: {post_id: post.id, like_id: like[0].id }, method: :post, class:'likesButton'   do %>
-            <i class="fa-solid fa-heart likUnlikeIcon"></i>
-            <%end%>
-        <% end %>
-
+      <% end %>
         <div class="post-info">
           <span class="likes-count"><i class="bi bi-heart-fill"></i> <%= post.likes.count %> Likes</span>
           <span class="comment-count"><i class="bi bi-chat-fill"></i>  <%= post.comments.count %> Comments</span>
@@ -52,8 +81,7 @@
   </div>
 </div>
 
-
-
+ 
 
 <%# ```````````````````````````` %>
 

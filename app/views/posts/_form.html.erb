@@ -3,9 +3,7 @@
 <% stylesheet_link_tag "postsForm"%>
 
 <div class="newPost">
-<h1 >
-    Add new Post
-  </h1>
+ 
 <%= form_with class:"form-group newPostForm bg-light text-dark", model: post  do |form| %>
 
   <div class="mb-3">
@@ -19,6 +17,12 @@
     <label for="description" class="form-label">Description</label>
     <%= form.text_area :description ,class:"form-control" %>
   </div>
+  <div>
+    <br>
+     <label for="Category" class="form-label">Post category</label>
+    <%= form.select :privacy, options_for_select([['Public', 'Public'], ['Private', 'Private'] ]), include_blank: false %>
+</div>
+
 <% post.errors.full_messages_for(:description).each do |message| %>
       <div><%= message %></div>
     <% end %>

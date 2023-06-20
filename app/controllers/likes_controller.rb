@@ -1,9 +1,11 @@
 class LikesController < ApplicationController
+    before_action :authenticate_user!
   def createLikeForPost
     @post = Post.find(params[:post_id])
 
-    @user=User.first
-    @like = @post.likes.create(user: @user)
+
+
+    @like = @post.likes.create(user_id: current_user.id)
 
     if !@like.save
       flash[:alert] = "Already liked"
@@ -42,7 +44,7 @@ class LikesController < ApplicationController
     @lik = @comment.likes.find(params[:like_id])
 
     @lik.destroy
-      redirect_to post_path(params[:post_id]) 
+      redirect_to post_path(params[:post_id])
   end
 
   def like_params

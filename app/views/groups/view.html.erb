@@ -1,16 +1,28 @@
+<div class="group">
+    <br>
+    <h1> <b> Group name: </b><%= @group.name %> </h1>
+    <br>
+    <h1> <b>Group Bio: </b><%= @group.bio %> </h1>
+    <h1> <b>Group Admin: </b><%= @group.user.name %> </h1>
+    <h1> <b>Group Category: </b><%= @group.community.name %> </h1>
+</div>
 
 <br>
-<h1> <b> Group name: </b><%= @group.name %> </h1>
-<br>
-<h1> <b>Group Bio: </b><%= @group.bio %> </h1>
-<br>
-<h1> MEMBERS </h1>
-<br>
+<h1> MEMBERS:</h1>
+
 <ul class="list-group list-group-flush followList">
+
     <% members = @group.members %>
         <% members.each do |member| %>
+
             <% user = User.find(member.user_id) %>
              <%= render "showMember", userName: user.name, userEmail: user.email, userId: user.id %>
     <% end %>
 
+</ul>
+<hr>
+<h1>Members Posts</h1>
+<ul>
+
+<%= render "groupPosts", group:@group %>
 </ul>

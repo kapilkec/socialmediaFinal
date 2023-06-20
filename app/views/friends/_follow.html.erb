@@ -1,11 +1,13 @@
 
 <%= stylesheet_link_tag 'friendsFollow' %>
+  <% if user_signed_in? %>
 
- <% follow_check = Friend.where(fromUser:1,toUser:touser) %>
+ <% follow_check = Friend.where(fromUser:current_user.id,toUser:touser,followed: true) %>
  <% if follow_check.length == 0 %>
- <%= button_to "Follow", set_follow_path, params: {friend: {fromUser:1,toUser: touser}},class:"btn btn-success btn-sm", method: :post %>
+ <%= button_to "Follow", set_follow_path, params: {friend: {fromUser:current_user.id,toUser: touser}},class:"btn btn-success btn-sm", method: :post %>
  <% else %>
 
   <%= button_to "Unfollow", set_unfollow_path(follow_check[0]),class:"btn btn-danger btn-sm",  method: :delete %>
 <% end %>
 
+<% end %>

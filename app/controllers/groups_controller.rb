@@ -1,7 +1,8 @@
 class GroupsController < ApplicationController
+    before_action :authenticate_user!, only: [:new,:create,:mygroups,:view]
+      before_action :is_group_owner, only: [:delete]
   def show
     @groups = Group.all
-
   end
   def new
     @communitys = Community.all
@@ -9,7 +10,7 @@ class GroupsController < ApplicationController
   end
   def create
     @community = Community.find(params.require(:group)[:category])
-    @user = User.find(1)
+    @user = User.find(current_user.id)
     @group = Group.new(name:params.require(:group)[:name], bio:params.require(:group)[:bio])
     @user.groups << @group
     @community.groups << @group
@@ -21,22 +22,38 @@ class GroupsController < ApplicationController
   end
 
   def mygroups
-    @userid = 1
-    @members = Member.all.where(user_id:@userid)
+
+    @members = Member.all.where(user_id:User.find(current_user.id))
 
   end
 
   def delete
-    p '````````````````````'
+    p '`````````delte group```````````'
     @group = Group.find(params[:group_id])
     @group.destroy
     redirect_to groups_mygroups_path
   end
 
   def view
-    p'``````````````````````'
+    p'``````````view group````````````'
     @group = Group.find(params[:id])
-    
+
   end
+
+  def join
+    p '`````````join````````'
+   @group = Group.find(params[:group_id])
+   puts @group.name
+  end
+
+  private
+    def is_group_owner
+      @group = Group.find(params[:group_id])
+      unless user_signed_in? and current_user.id == @group.user.id
+          flash[:notice] = "Unauthorized access"
+          redirect_to root_path
+      end
+    end
+
 
 end

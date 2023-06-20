@@ -34,7 +34,9 @@
                  <%= comment.likes.count %>
                   </div>
             </div>
+            <% if comment.user.id == current_user.id || comment.post.user.id == current_user.id%>
 
+            <% if comment.user.id == current_user.id  %>
             <div class="commentRight">
 
                   <%= link_to  edit_post_comment_path(post_id:post, id:comment),method: :get  do %>
@@ -42,6 +44,7 @@
                   <%end%>
 
             </div>
+            <% end %>
             <div>
                   <%= link_to   [comment.post, comment],class:"editDelete", data: {
                   turbo_method: :delete,
@@ -50,6 +53,9 @@
                                    <i class="fa-solid fa-trash" style="color: #ec0936;"></i>
                   <%end%>
             </div>
+
+
+            <% end %>
 
         </div>
 

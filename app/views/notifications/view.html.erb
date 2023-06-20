@@ -1,0 +1,24 @@
+<% stylesheet_link_tag "friendsListFriend"%>
+
+<h1>All notifications</h1>
+<ul class = "list-group list-group-flush followList" > <% @notifications.each do |notification| %>
+        <% if notification.hasRead == true %>
+            <% next %>
+        <% end %>
+
+        <% user = User.find(notification.friend.fromUser) %>
+            <li class="list-group-item d-flex listItem p-2 mt-3">
+                <div class="d-flex flex-column">
+                    <div>
+                        <i class="fa-solid fa-user"></i>
+                        (<%= user.name %>) => has started following you
+                    </div>
+
+                </div>
+        <div class="button">
+         <%= button_to "Mark as Read" , notifications_mark_as_read_path,method: :post, params: {id:notification.id}, class: "btn btn-primary p-1 px-1" ,style:"margin-top:-15px" %>
+        </div>
+        <br>
+        </li>
+        <% end %>
+        </ul>

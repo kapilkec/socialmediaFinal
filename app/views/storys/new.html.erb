@@ -5,7 +5,7 @@
     <%= form.text_field :note , class:"form-control" %>
     <br>
     <%= form.label :image , class:"form-label" %>
-    <%= form.file_field :image, multiple:false, class:"form-control"%>
+    <%= form.file_field :image, multiple:false,required:true, class:"form-control"%>
     <br>
     <%= form.submit "submit" , class:"btn btn-success w-100"%>
   </div>

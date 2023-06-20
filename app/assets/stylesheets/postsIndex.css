@@ -91,3 +91,14 @@
   margin-top: 15px;
 }
 
+
+.flash {
+  padding: 10px;
+  background-color: yellow;
+}
+
+#close-flash {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}

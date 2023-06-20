@@ -1,5 +1,5 @@
  <%= stylesheet_link_tag 'storyIndex' %>
- 
+
   <br>
   <h5>
       Stories
@@ -9,17 +9,21 @@
     <div class="card border-success mb-3 mx-3" style="max-width: 18rem;">
   <div class="card-header bg-transparent border-success"><%= story.user.name%></div>
   <div class="card-body text-success">
+    <% if story.image != nil %>
      <%= image_tag(story.image ,class:'img-fluid' )%>
+     <% end %>
   </div>
   <div class="card-footer bg-transparent border-success d-flex justify-content-between">
     <div>
         <%=story.note%>
     </div>
+      <% if user_signed_in? and story.user.id == current_user.id %>
     <div>
       <%= button_to   delete_story_path(story.id),class:"storyDelete" , method: :delete  do%>
          <i class="fa-solid fa-trash" style="color: #ec0936;"></i>
        <%end%>
     </div>
+      <% end %>
   </div>
 </div>
 

@@ -1,13 +1,17 @@
-<%= form_with model: [ @post, @comment ] do |form| %>
+<div>
+  <br>
+<h1>EDIT</h1>
+<%= form_with class:"form-group bg-light text-dark w-50 mx-auto mt-5 p-5", model: [ @post, @comment ] do |form| %>
   <p>
-    <%= form.label :commenter %><br>
-    <%= form.text_field :commenter %>
+
+    <%= form.text_field :commenter,value: current_user.name , type: "hidden"  %>
   </p>
   <p>
-    <%= form.label :comment %><br>
-    <%= form.text_area :comment  %>
+    <%= form.label :comment,class:"form-label" %><br>
+    <%= form.text_area :comment,class:"form-control"  %>
   </p>
   <p>
-    <%= form.submit %>
+    <%= form.submit class:"btn btn-primary" %>
   </p>
 <% end %>
+</div>

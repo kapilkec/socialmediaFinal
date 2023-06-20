@@ -4,7 +4,7 @@
 <%= form_with model:[ post, post.comments.build ],url:post_comments_path(post) do |form| %>
   <p>
 
-    <%= form.text_field :commenter,value: User.first.name, type: "hidden"  %>
+    <%= form.text_field :commenter,value: current_user.name , type: "hidden"  %>
   </p>
 
   <p>

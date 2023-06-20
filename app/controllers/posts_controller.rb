@@ -1,6 +1,16 @@
 class PostsController < ApplicationController
-  # before_action :authenticate_deviseuser!
+
+  before_action :authenticate_user!, only: [:new,:create,:show, :edit,:update,:destroy]
+  before_action :is_post_owner, only: [:edit,:update,:destroy]
   def index
+     if user_signed_in?
+        user = User.find(current_user.id)
+        notification = user.latest_notification
+        if notification != nil and notification.hasRead == false
+          followedUser = User.find(notification.friend.fromUser)
+          flash.now[:notification] = followedUser.name + " is now following you"
+        end
+     end
     @posts = Post.all
   end
   def show
@@ -11,7 +21,7 @@ class PostsController < ApplicationController
   end
   def create
     p "ctrh``````````````````````````"
-    @user = User.find(1)
+    @user = User.find(current_user.id)
     @post = Post.new(post_params)
     @user.posts << @post
     if @post.save
@@ -47,7 +57,14 @@ class PostsController < ApplicationController
   end
   private
     def post_params
-      params.require(:post).permit(:title, :description, images:[])
+      params.require(:post).permit(:title, :description,:privacy, images:[])
+    end
+    def is_post_owner
+      @post = Post.find(params[:id])
+      unless user_signed_in? and current_user.id == @post.user.id
+          flash[:notice] = "Unauthorized access"
+          redirect_to root_path
+      end
     end
 
 end

@@ -4,7 +4,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark navbarCustom">
 
 
-    <a class="navbar-brand" href="#">Navbar</a>
+    <a class="navbar-brand" href="#">SociaGram</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -16,7 +16,6 @@
         <li class="nav-item">
              <%= link_to "New Post", new_post_path, class: 'nav-link' %>
         </li>
-
          <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Groups
@@ -73,22 +72,33 @@
           </ul>
         </li>
 
+
         <% if  user_signed_in? %>
+
+              <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fa-solid fa-user  "></i><%= current_user.name%>
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
              <li class="nav-item">
-              <%= button_to "SigOut", destroy_user_session_path, method: :delete, class: 'nav-link' %>
+              <%= button_to "SigOut", destroy_user_session_path, method: :delete, class: 'dropdown-item btn'  %>
             </li>
              <li class="nav-item">
-               <%= link_to "Edit", edit_user_registration_path , class: 'nav-link' %>
+               <%= link_to "Edit", edit_user_registration_path , class: 'dropdown-item'%>
             </li>
-            <li class="nav-item">
-               <%= link_to "Delete Account", cancel_user_registration_path , class: 'nav-link' %>
-            </li>
+
+          </ul>
+        </li>
+
         <% else %>
             <li class="nav-item">
               <%= link_to "Signup", new_user_registration_path, class: 'nav-link' %>
             </li>
         <% end %>
 
+        <li class="nav-item">
+                 <%= link_to "My notifications", notifications_all_path, class: 'nav-link' %>
+              </li>
 
 
       </ul>
