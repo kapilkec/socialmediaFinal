@@ -32,35 +32,41 @@ class Api::PostsController < Api::ApiController
     @post = Post.new
   end
   def create
-    p "ctrh``````````````````````````"
-    user = User.last
+    user = User.find_by(id:params[:userId])
+    if user
+      post = Post.new(post_params)
+      user.posts << post
+      if post.save
+        user.save
+        render json: post, status: :ok
 
-
-    post = Post.new(post_params)
-
-    user.posts << post
-    if post.save
-      user.save
-      render json: post, status: :ok
-
+      else
+        render json: {message: "unable to create"}, status: :ok
+      end
     else
-      render json: {message: "unable to create"}, status: :ok
+      render json: {message: "no user found" }, status: :ok
     end
   end
 
   def edit
 
-    @post = Post.find(params[:id])
+    post = Post.find_by(id:params[:id])
+      if post
+        render json: post, status: :ok
+      else
+        render json: {message: "no post found for editing"}, status: :ok
+      end
+
   end
 
     def update
 
-    @post = Post.find(params[:id])
+    post = Post.find_by(params[:id])
 
-    if @post.update(post_params)
-      redirect_to  posts_path
+    if post.update(post_params)
+        render json: post, status: :ok
     else
-      render :edit, status: :unprocessable_entity
+      render json: {message: "no post found for updating"}, status: :ok
     end
   end
 
@@ -75,7 +81,7 @@ class Api::PostsController < Api::ApiController
     end
 
 
-     
+
   end
   private
     def post_params

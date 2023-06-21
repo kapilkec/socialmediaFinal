@@ -67,7 +67,7 @@ Rails.application.routes.draw do
     get 'notifications/all', to: 'notifications#view', as:'notifications_all'
     post 'notifications/markasread', to:'notifications#markAsRead', as:'notifications_mark_as_read'
 
-    
+
 
 # ``````````````````````````````api start``````````````````````````````````````````````````````
     # For api
@@ -91,7 +91,7 @@ Rails.application.routes.draw do
 
 
  get 'storys', to: 'storys#index'
-   delete 'delete/story', to:'storys#delete', as: 'delete_story'
+   delete 'delete/story/:id', to:'storys#delete', as: 'delete_story'
    post 'create/story', to:'storys#create', as:'new_story'
    get 'add/story', to:"storys#new", as:"add_story"
 
@@ -99,9 +99,9 @@ Rails.application.routes.draw do
   get 'allusers/following', to: 'friends#following'
   get 'allusers/followers', to: 'friends#followers'
   post 'friends/Following', to: 'friends#create', as: 'set_follow'
-    delete 'friends/unFollowing', to: 'friends#destroy', as: 'set_unfollow'
+  delete 'friends/unFollowing/:id', to: 'friends#destroy', as: 'set_unfollow'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-  post 'posts/like/delete', to: 'likes#destroyPostLike', as:'post_unlike'
+  delete 'posts/like/delete', to: 'likes#destroyPostLike', as:'post_unlike'
   post 'posts/like/create', to: 'likes#createLikeForPost', as:'post_like'
 
   post 'comments/like/create', to: 'likes#createLikeForComment', as:'comment_like'
@@ -110,13 +110,8 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # For group
   get 'groups', to:'groups#show'
-  get 'groups/new' , to:'groups#new'
-  get 'groups/mygroups' , to:'groups#mygroups'
   post 'groups/new/create' , to:'groups#create', as:'new_group'
-  post 'groups/addUser', to:'members#create', as:'add_to_group'
-  post 'groups/deleteGroups', to:'groups#delete', as:'delete_group'
-  get 'groups/:id/view', to: 'groups#view', as:'view_group'
-  get 'groups/join', to: 'groups#join', as:'join_group'
+  delete 'groups/deleteGroups/:group_id', to:'groups#delete', as:'delete_group'
 
 
 
