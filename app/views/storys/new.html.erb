@@ -3,6 +3,9 @@
   <div>
     <%= form.label :note , class:"form-label" %>
     <%= form.text_field :note , class:"form-control" %>
+    <% @story.errors.full_messages_for(:note).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
     <br>
     <%= form.label :image , class:"form-label" %>
     <%= form.file_field :image, multiple:false,required:true, class:"form-control"%>

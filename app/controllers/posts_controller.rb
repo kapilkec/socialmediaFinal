@@ -11,6 +11,7 @@ class PostsController < ApplicationController
           flash.now[:notification] = followedUser.name + " is now following you"
         end
      end
+     flash[:notice]="Sign in to view all"
     @posts = Post.all
   end
   def show
@@ -38,7 +39,7 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
   end
 
-    def update
+  def update
 
     @post = Post.find(params[:id])
 

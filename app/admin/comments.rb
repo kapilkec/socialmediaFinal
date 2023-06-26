@@ -1,5 +1,5 @@
 ActiveAdmin.register Comment ,as: "PostComment" do
-
+  scope :likes_greater_than_one
   # See permitted parameters documentation:
   # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
   #

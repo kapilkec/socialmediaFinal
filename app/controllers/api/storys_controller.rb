@@ -1,33 +1,37 @@
 class Api::StorysController < Api::ApiController
-    # before_action :authenticate_user!, only: [:new]
-    # before_action :check_story_owner, only: [:delete]
+    before_action :is_registered_user, only: [:create]
+    before_action :check_story_owner, only: [:delete]
   def index
     storys = Story.not_expired
     render json: storys, status: :ok
   end
 
   def delete
-    p '````````````del```````'
-    p params[:id]
     story = Story.find_by(id: params[:id])
-    if story and story.destroy
-      render json: {message:"story deleted"},status: :ok
+    if story
+      if story.destroy
+        render json: {message:"story deleted"},status: :see_other
+      else
+        render json: {message: story.errors.full_message },status: :unprocessable_entity
+      end
     else
-      render json: {message: "unable to delete story",status: :ok}
+      render json: {message:"not found" },status: :not_found
     end
+
   end
 
+
   def create
-    user = User.find_by(id:1)
+    user = User.find_by(id:current_user.id)
     if user
       story = user.create_story(article_params)
       if story.save
-          render json: story, status: :ok
+          render json: story, status: :created
       else
-          render json: {message:"unable to create story"}, status: :ok
+          render json: {message:"unable to create story"},status: :unprocessable_entity
       end
     else
-      render json: {message:"couldn't find user"}, status: :ok
+      render json: {message:"couldn't find user"},status: :not_found
     end
   end
 
@@ -36,12 +40,16 @@ class Api::StorysController < Api::ApiController
       params.require(:story).permit(:note,:image)
     end
       def check_story_owner
-      @story = Story.find(params[:format])
+      story = Story.find_by(params[:id])
 
-      unless user_signed_in? and current_user.id == @story.user.id
-          flash[:notice] = "Unauthorized access"
-          redirect_to root_path
+      unless current_user and current_user == story.user
+          render json: {message: "you are not the owner of story"} ,status: :unauthorized
       end
     end
+     def is_registered_user
+      unless current_user
+        render json: {message: "only registered users can access stories"} ,status: :unauthorized
+      end
+   end
 
 end

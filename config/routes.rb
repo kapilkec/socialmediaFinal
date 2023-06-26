@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  use_doorkeeper
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 
@@ -118,6 +119,12 @@ Rails.application.routes.draw do
   # get 'groups/mygroups', to:'groups#mygroup'
 
   root "posts#index"
+
+  get 'posts/zerolikes', to: 'posts#postWithZeroLike', as:'post_zerolike'
+  get 'posts/mostlikes', to: 'posts#postWithMoreLikes', as:'post_mostlike'
+  get 'posts/mostComments', to: 'posts#postWithMoreComments', as:'post_mostComments'
+  get 'groups/mostgroups', to: 'groups#userWithMoreGroups', as:'user_mostGroups'
+
   resources :likes, only: [:create, :destroy]
   resources :posts do
     resources :comments

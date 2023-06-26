@@ -11,6 +11,6 @@ class CreateActiveAdminComments < ActiveRecord::Migration[7.0]
   end
 
   def self.down
-    drop_table :active_admin_comments
+    # drop_table :active_admin_comments
   end
 end

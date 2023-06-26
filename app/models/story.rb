@@ -2,7 +2,7 @@ class Story < ApplicationRecord
   belongs_to :user
   has_one_attached :image ,dependent: :destroy
   before_create :set_expiration_time
-   validates :note,presence: true 
+  validates :note, presence: true, length: { minimum: 2, maximum: 20}
   scope :not_expired, -> { where('expiration_time > ?', Time.now) }
 
   private

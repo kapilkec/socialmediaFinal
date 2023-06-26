@@ -5,6 +5,7 @@ ruby "3.2.2"
 
 #for active admin
 gem 'activeadmin'
+gem 'doorkeeper'
 
 gem 'sassc'
 
@@ -57,6 +58,7 @@ group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
   gem "sass-rails"
+  gem "factory_bot_rails"
 end
 
 group :development do
@@ -70,6 +72,9 @@ group :development do
   # gem "spring"
 end
 
+group :test do
+  gem "rspec-rails"
+end
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"

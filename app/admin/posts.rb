@@ -28,5 +28,7 @@ ActiveAdmin.register Post do
   end
 
   filter :title
+  filter :comments, as: :select, collection: proc { Comment.pluck(:comment  , :id) }
+
 
 end
