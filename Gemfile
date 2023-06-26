@@ -61,6 +61,7 @@ group :development, :test do
   gem "factory_bot_rails"
 end
 
+gem 'rails-controller-testing'
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
