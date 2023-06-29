@@ -8,8 +8,8 @@ class Api::CommentsController < Api::ApiController
     post = Post.find_by(id: params[:post_id])
     if post
         comments = post.comments.all
-        if comments
-           render json: comments, status: :ok
+        unless comments.empty?
+           render json: comments, status: :found
         else
             render json: {message: "unable to fetch comments"}, status: :not_found
         end
@@ -54,7 +54,7 @@ end
         post.comments << comment
         if  comment.save
           if post.save
-              render json: comment, status: :ok
+              render json: comment, status: :created
           else
               render json: {message:post.errors.full_messages},status: :unprocessable_entity
           end
@@ -91,15 +91,16 @@ end
     def is_comment_owner
       comment = Comment.find_by(id:params[:id])
       unless comment and current_user and  current_user == comment.user
-          render json:{message:"only owner can update or delete"},status: :unauthorized
+          render json:{message:"only owner can update or delete"},status: :forbidden
       end
     end
 
     def is_post_owner
+
       comment = Comment.find_by(id:params[:id])
       unless (user_signed_in? and current_user == comment.post.user) or (current_user == comment.user)
           flash[:notice] = "Unauthorized access"
-          redirect_to root_path
+          render json: {messge: "only registered users can access comments"},status: :unauthorized
       end
     end
 

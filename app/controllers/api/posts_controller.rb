@@ -51,7 +51,7 @@ class Api::PostsController < Api::ApiController
 
   def edit
 
-    post = Post.find_by(id:params[:id])
+      post = Post.find_by(id:params[:id])
       if post
         render json: post, status: :ok
       else
@@ -139,8 +139,11 @@ class Api::PostsController < Api::ApiController
       post = Post.find_by(id:params[:id])
 
       unless post and   current_user== post.user
-
-          render json: {message:"only post owner can update or delete"},status: :unauthorized
+          if post == nil
+                render json: {message:"no post found"},status: :not_found
+          else
+           render json: {message:"only post owner can update or delete"},status: :forbidden
+          end
       end
 
     end

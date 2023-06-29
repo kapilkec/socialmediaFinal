@@ -1,50 +1,73 @@
 class LikesController < ApplicationController
-    before_action :authenticate_user!
+  before_action :authenticate_user!
   def createLikeForPost
-    @post = Post.find(params[:post_id])
+    @post = Post.find_by(id:params[:post_id])
+    if @post == nil
+      redirect_to root_path
+    else
+      @like = @post.likes.create(user_id: current_user.id)
 
-
-
-    @like = @post.likes.create(user_id: current_user.id)
-
-    if !@like.save
-      flash[:alert] = "Already liked"
+      if @like.save
+         flash[:alert] = "like saved"
+      else
+        flash[:alert] = "unable to save like"
+      end
+      redirect_to root_path
     end
-
-    redirect_to root_path
   end
 
   def createLikeForComment
-    @comment = Comment.find(params[:comment_id])
 
-    @user=User.first
-    @like = @comment.likes.create(user: @user)
+    @comment = Comment.find_by(id:params[:comment_id])
+    if @comment == nil
+      redirect_to root_path
+    else
+      @user=User.find_by(id: current_user.id)
+      @like = @comment.likes.create(user: @user)
 
-    if !@like.save
-      flash[:alert] = "Already liked"
+      if @like.save
+        flash[:alert] = "like saved"
+      else
+        flash[:alert] = "unable to save like"
+      end
+
+      redirect_to post_path(params[:post_id])
     end
-
-    redirect_to post_path(params[:post_id])
   end
 
 
   def destroyPostLike
 
-    @post = Post.find(params[:post_id])
-
-    @like = @post.likes.find(params[:like_id])
-    @like.destroy
-    redirect_to root_path
+    @post = Post.find_by(id:params[:post_id])
+    if @post == nil
+      redirect_to root_path
+    else
+      @like = @post.likes.find_by(id:params[:like_id])
+      if @like == nil
+        flash[:alert] = "no like record found"
+      else
+        @like.destroy
+        flash[:alert] = "like deleted"
+      end
+      redirect_to root_path
+    end
   end
 
   def deleteCommentLike
 
-    @comment = Comment.find(params[:comment_id])
 
-    @lik = @comment.likes.find(params[:like_id])
-
-    @lik.destroy
-      redirect_to post_path(params[:post_id])
+    @comment = Comment.find_by(id:params[:comment_id])
+    if @comment == nil
+      redirect_to root_path
+    else
+      @like = @comment.likes.find_by(id:params[:like_id])
+      if @like == nil
+        flash[:alert] = "no like record found"
+      else
+        @like.destroy
+        flash[:alert] = "like deleted"
+      end
+    end
   end
 
   def like_params

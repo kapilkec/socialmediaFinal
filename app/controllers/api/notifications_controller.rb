@@ -11,16 +11,22 @@ class Api::NotificationsController < Api::ApiController
   end
 
   def markAsRead
+
     notification = Notification.find_by(id:params[:id])
-    if notification
-      if  notification.update(hasRead: true)
-          render json: { message: "marked as read" },status: :ok
+      if notification
+        if notification.user != current_user
+        render json: { message: "not the notification owner" },status: :forbidden
+        else
+          if  notification.update(hasRead: true)
+              render json: { message: "marked as read" },status: :ok
+          else
+            render json: {message:notification.errors.full_messages},status: :unprocessable_entity
+          end
+        end
       else
-         render json: {message:notification.errors.full_messages},status: :unprocessable_entity
+        render json: {message: "no notification found" },status: :not_found
       end
-    else
-      render json: {message: "no notification found" },status: :not_found
-    end
+
   end
 
   private

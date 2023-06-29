@@ -29,7 +29,7 @@ Rails.application.routes.draw do
   post 'friends/Following', to: 'friends#create', as: 'set_follow'
     delete 'friends/unFollowing', to: 'friends#destroy', as: 'set_unfollow'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-  post 'posts/like/delete', to: 'likes#destroyPostLike', as:'post_unlike'
+  delete 'posts/like/delete', to: 'likes#destroyPostLike', as:'post_unlike'
   post 'posts/like/create', to: 'likes#createLikeForPost', as:'post_like'
 
   post 'comments/like/create', to: 'likes#createLikeForComment', as:'comment_like'

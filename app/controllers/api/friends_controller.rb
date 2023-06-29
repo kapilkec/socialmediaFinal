@@ -30,7 +30,6 @@ class Api::FriendsController < Api::ApiController
 
   def destroy
     record = Friend.find_by( params[:id] )
-
     if record
       record.followed = false
       record.save

@@ -62,7 +62,7 @@
               <%end%>
           <%else%>
 
-              <%= button_to   post_unlike_path, params: {post_id: post.id, like_id: like[0].id }, method: :post, class:'likesButton'   do %>
+              <%= button_to   post_unlike_path, params: {post_id: post.id, like_id: like[0].id }, method: :delete, class:'likesButton'   do %>
               <i class="fa-solid fa-heart likUnlikeIcon"></i>
               <%end%>
           <% end %>
@@ -81,7 +81,7 @@
   </div>
 </div>
 
- 
+
 
 <%# ```````````````````````````` %>
 

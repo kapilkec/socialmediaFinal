@@ -33,7 +33,6 @@ class PostsController < ApplicationController
   end
 
   def edit
-
     @post = Post.find(params[:id])
   end
 
@@ -49,18 +48,25 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    @post = Post.find(params[:id])
-    @post.destroy
 
-    redirect_to root_path, status: :see_other
+    @post = Post.find_by(id:params[:id])
+    
+    if  @post != nil and @post.destroy
+      redirect_to root_path, status: :see_other
+    else
+      redirect_to root_path, notice:"unable to destroy.."
+    end
+
+
   end
+
   private
     def post_params
       params.require(:post).permit(:title, :description,:privacy, images:[])
     end
     def is_post_owner
-      @post = Post.find(params[:id])
-      unless user_signed_in? and current_user.id == @post.user.id
+      @post = Post.find_by(id:params[:id])
+      unless @post and user_signed_in? and current_user.id == @post.user.id
           flash[:notice] = "Unauthorized access"
           redirect_to root_path
       end

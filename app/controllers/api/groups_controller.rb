@@ -37,7 +37,7 @@ class Api::GroupsController < Api::ApiController
   end
 
   def delete
-    p '`````````delte group```````````'
+
     group = Group.find_by(id:params[:group_id])
     if group
       if group.destroy
@@ -68,7 +68,7 @@ class Api::GroupsController < Api::ApiController
     def is_group_owner
       group = Group.find_by(params[:group_id])
       unless current_user and current_user == group.user
-          render json: {messge: "only group owner can delete"},status: :unauthorized
+          render json: {messge: "only group owner can delete"},status: :forbidden
       end
     end
 

@@ -86,7 +86,7 @@ RSpec.describe Post, type: :model do
             before do
               post.save
             end
-            it "should return true" do
+            it "returns true" do
               expect(post.errors).to_not include(:description)
             end
         end

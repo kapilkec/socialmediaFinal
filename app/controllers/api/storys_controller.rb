@@ -40,10 +40,13 @@ class Api::StorysController < Api::ApiController
       params.require(:story).permit(:note,:image)
     end
       def check_story_owner
-      story = Story.find_by(params[:id])
-
-      unless current_user and current_user == story.user
-          render json: {message: "you are not the owner of story"} ,status: :unauthorized
+      story = Story.find_by(id:params[:id])
+      if story == nil
+        render json: {message: "story not found"} ,status: :not_found
+      else
+        unless current_user and current_user == story.user
+            render json: {message: "you are not the owner of story"} ,status: :forbidden
+        end
       end
     end
      def is_registered_user
