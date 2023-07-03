@@ -117,12 +117,13 @@ Rails.application.routes.draw do
 
 
   # get 'groups/mygroups', to:'groups#mygroup'
-
+  #custom api
   root "posts#index"
 
   get 'posts/zerolikes', to: 'posts#postWithZeroLike', as:'post_zerolike'
   get 'posts/mostlikes', to: 'posts#postWithMoreLikes', as:'post_mostlike'
   get 'posts/mostComments', to: 'posts#postWithMoreComments', as:'post_mostComments'
+  get 'users/morePosts', to:'posts#userWithMorePost', as:'user_morePosts'
   get 'groups/mostgroups', to: 'groups#userWithMoreGroups', as:'user_mostGroups'
 
   resources :likes, only: [:create, :destroy]

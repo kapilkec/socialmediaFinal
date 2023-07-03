@@ -1,5 +1,5 @@
 ActiveAdmin.register Group do
-
+   actions :index, :show, :destroy
   scope :group_with_community_one
   index do
     column :name
@@ -17,5 +17,6 @@ ActiveAdmin.register Group do
   end
 
   filter :name
+   filter :bio, as: :select, collection: proc { Group.pluck(:bio , :id) }
 
 end

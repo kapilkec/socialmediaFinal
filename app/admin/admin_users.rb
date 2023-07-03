@@ -11,7 +11,7 @@ ActiveAdmin.register AdminUser do
     actions defaults: false do |admin_user|
     item "View", admin_admin_user_path(admin_user), class: "member_link"
     item "Edit", edit_admin_admin_user_path(admin_user), class: "member_link"
-    if AdminUser.count > 1
+    if AdminUser.count <= 1
       item "Delete", admin_admin_user_path(admin_user), class: "member_link", method: :delete, data: { confirm: 'Something will be deleted forever. Sure?' }
     end
   end

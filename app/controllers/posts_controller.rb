@@ -4,15 +4,40 @@ class PostsController < ApplicationController
   before_action :is_post_owner, only: [:edit,:update,:destroy]
   def index
      if user_signed_in?
-        user = User.find(current_user.id)
+        user = User.find_by(id:current_user.id)
         notification = user.latest_notification
         if notification != nil and notification.hasRead == false
           followedUser = User.find(notification.friend.fromUser)
           flash.now[:notification] = followedUser.name + " is now following you"
         end
      end
-    @posts = Post.all
+
+    allposts = Post.all
+
+    @flag = false
+    unless params[:field]
+      p 'gfhj1````````````'
+        @flag = true
+        @posts=Post.includes(:user,:likes,:comments).page(params[:page])
+    else
+        @posts = Array.new
+        allposts.each do |post|
+            @posts.push(post)
+        end
+        if  params[:field] and params[:field] == "Name" and params[:value].length!=0
+          @posts = filter_posts_by_user_name(Post.all, /^#{params[:value]}/)
+        end
+        if  params[:field] and params[:field] == "Title" and params[:value].length!=0
+          @posts = @posts.select{ |post| post[:title] =~ /#{params[:value]}/ }
+          p '````````21'
+          p @posts
+        end
+        if  params[:field] and params[:field] == "Description" and params[:value].length!=0
+          @posts =  @posts.select{ |post| post[:description] =~ /#{params[:value]}/ }
+        end
+    end
   end
+
   def show
     @post = Post.find(params[:id])
   end
@@ -50,7 +75,7 @@ class PostsController < ApplicationController
   def destroy
 
     @post = Post.find_by(id:params[:id])
-    
+
     if  @post != nil and @post.destroy
       redirect_to root_path, status: :see_other
     else
@@ -70,6 +95,9 @@ class PostsController < ApplicationController
           flash[:notice] = "Unauthorized access"
           redirect_to root_path
       end
+    end
+    def filter_posts_by_user_name(posts, pattern)
+      posts.select { |post| post.user.name =~ pattern }
     end
 
 end

@@ -100,6 +100,21 @@ class Api::PostsController < Api::ApiController
 
   end
 
+  def userWithMorePost
+    users_with_many_posts = User.joins(:posts)
+                            .group('users.id')
+                            .having('COUNT(posts.id) > ?', 1)
+                            .order('COUNT(posts.id) DESC')
+                             .limit(1)
+                            .first
+    if users_with_many_posts
+       render json: users_with_many_posts,status: :ok
+    else
+      render json: {message:"unable to fetch"},status: :not_found
+    end
+
+  end
+
   def postWithMoreLikes
 
    post_with_most_likes = Post.joins(:likes)

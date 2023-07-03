@@ -5,11 +5,12 @@ RSpec.describe Post, type: :model do
   describe "validation on title field" do
     context "when title is nil" do
       let(:post) {build(:post,title:nil)}
+
       before do
         post.save
       end
       it "should return false" do
-        expect(post.errors).to include(:title)
+        expect(post.errors.full_messages).to include("Title can't be blank")
       end
     end
 
@@ -29,7 +30,7 @@ RSpec.describe Post, type: :model do
         post.save
       end
       it "should return false" do
-        expect(post.errors).to include(:title)
+        expect(post.errors.full_messages).to include("Title is too short (minimum is 2 characters)")
       end
     end
     context "when title length is greater than 20 " do
@@ -38,7 +39,7 @@ RSpec.describe Post, type: :model do
         post.save
       end
       it "should return false" do
-        expect(post.errors).to include(:title)
+        expect(post.errors.full_messages).to include("Title is too long (maximum is 20 characters)")
       end
     end
     context "when title length is greater than 2 and less than 20" do
@@ -60,7 +61,7 @@ RSpec.describe Post, type: :model do
               post.save
             end
             it "should return false" do
-              expect(post.errors).to include(:description)
+              expect(post.errors.full_messages).to include("Description can't be blank")
             end
         end
         context "when description is not nil" do
@@ -87,7 +88,7 @@ RSpec.describe Post, type: :model do
               post.save
             end
             it "returns true" do
-              expect(post.errors).to_not include(:description)
+              expect(post.errors.full_messages).to_not include("Description is too short (minimum is 10 characters)")
             end
         end
         context "when description length is greater than 10 and less than 50" do
@@ -121,6 +122,17 @@ RSpec.describe Post, type: :model do
       end
     end
 
+  end
+  describe "callbacks" do
+      context "randomize_id" do
+        let(:post) {build(:post)}
+        before do
+          post.save
+        end
+        it "length equal to 9" do
+          expect(post.id.to_s.length).to eq(8)
+        end
+      end
   end
 
 end

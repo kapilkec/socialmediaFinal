@@ -2,6 +2,7 @@ ActiveAdmin.register Post do
 
   scope :likes_greater_than_one
   scope :with_zero_comments
+  actions :index, :show, :destroy
   index do
     column :user_id
     column :title
@@ -27,8 +28,9 @@ ActiveAdmin.register Post do
     permitted
   end
 
-  filter :title
+  filter :title, as: :select, collection: proc { Post.pluck(:title  , :id) }
+  filter :description, as: :select, collection: proc { Post.pluck(:description , :id) }
   filter :comments, as: :select, collection: proc { Comment.pluck(:comment  , :id) }
-
+  
 
 end

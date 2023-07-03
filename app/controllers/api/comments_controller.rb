@@ -1,5 +1,4 @@
 class Api::CommentsController < Api::ApiController
-  # before_action :authenticate_user!
   before_action :is_comment_owner, only: [:edit,:update]
   before_action :is_registered_user
   before_action :is_post_owner,only: [:destroy]

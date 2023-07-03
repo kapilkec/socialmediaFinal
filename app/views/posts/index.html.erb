@@ -7,6 +7,8 @@
 <div class="row postParent bg-light" >
 
 
+
+
 <% @posts.each do |post| %>
 
 <%# Checking for privacy %>
@@ -33,7 +35,8 @@
   <div class="card-header row">
     <h5 class="card-title col-md-6">
             <i class="fa-solid fa-user  "></i>
-             <%= post.user.name%></h5>
+
+             <%= post.post_owner_name%></h5>
     <h5 class="card-title col-md-6 ">
  <%= link_to   post do %>
  <button type="button" class="btn btn-primary float-md-end">View</button>
@@ -77,9 +80,10 @@
           <span class="comment-count"><i class="bi bi-chat-fill"></i>  <%= post.comments.count %> Comments</span>
         </div>
       </div>
-
   </div>
+
 </div>
+
 
 
 
@@ -125,4 +129,7 @@
 <%# for if false %>
 
 <%end %>
+<% if @flag %>
+<%= paginate @posts %>
+<% end %>
 </div>

@@ -1,4 +1,5 @@
 class Post < ApplicationRecord
+  paginates_per 3
   validates :title, presence: true,length: { minimum: 2, maximum: 20}
   has_many :comments, dependent: :destroy
   has_many :likes ,as: :likeable ,dependent: :destroy
@@ -17,7 +18,9 @@ class Post < ApplicationRecord
 
 
 
-
+  def post_owner_name
+    self.user.name
+  end
   private
   def randomize_id
 

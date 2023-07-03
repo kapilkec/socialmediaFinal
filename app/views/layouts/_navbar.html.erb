@@ -98,9 +98,27 @@
 
         <li class="nav-item">
                  <%= link_to "My notifications", notifications_all_path, class: 'nav-link' %>
-              </li>
+        </li>
 
 
+
+      </ul>
+
+      <ul class="navbar-nav mx-3">
+
+        <%=form_with url:root_path ,class:"d-flex flex-row gap-2"   ,method: :get do |f|%>
+           <li class="form-group   nav-item">
+                    <%=f.text_field :value ,class:"form-control",placeholder:"Search by" %>
+           </li>
+            <li class="form-group  nav-item ">
+                  <%= f.select(:field,[['Title', 'Title'], ['Description', 'Description'], ['Name', 'Name'] ],{},{:class=>"form-select"})%>
+           </li>
+            <li class="form-group nav-item ">
+                   <%= button_tag type: :submit, class:"commentSubmit btn btn-primary "  do %>
+                               Search
+                   <% end %>
+           </li>
+        <%end%>
       </ul>
 
 

@@ -6,8 +6,10 @@ ruby "3.2.2"
 #for active admin
 gem 'activeadmin'
 gem 'doorkeeper'
-
+#for pagination
+gem 'kaminari'
 gem 'sassc'
+gem 'byebug'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.5"

@@ -1,5 +1,6 @@
 ActiveAdmin.register User do
   scope :with_zero_posts
+   actions :index, :show, :destroy
   # See permitted parameters documentation:
   # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
   #

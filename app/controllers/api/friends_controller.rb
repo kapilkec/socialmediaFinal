@@ -40,7 +40,7 @@ class Api::FriendsController < Api::ApiController
   end
 
   def following
-    records = Friend.find_by(fromUser:current_user.id,followed: true)
+    records = Friend.find_by(fromUser:current_user.id, followed: true)
     if records
       render json: records,status: :ok
     else
@@ -49,7 +49,7 @@ class Api::FriendsController < Api::ApiController
   end
 
   def followers
-   records = Friend.find_by(toUser:current_user.id,followed: true)
+   records = Friend.find_by(toUser:current_user.id, followed: true)
     if records
       render json: records,status: :ok
     else
